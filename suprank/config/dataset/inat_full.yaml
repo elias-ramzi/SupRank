@@ -1,0 +1,63 @@
+hierarchy_level: 7
+num_classes_train_full0: 5690
+num_classes_train_full1: 3438
+num_classes_train_full2: 961
+num_classes_train_full3: 249
+num_classes_train_full4: 54
+num_classes_train_full5: 23
+num_classes_train_full6: 5
+
+num_classes_train_level0: 5690
+num_classes_train_level1: 13
+
+num_samples_train: 325846
+
+recall_for_eval: [1, 4, 16, 32]
+
+
+dts:
+  train:
+    _target_: suprank.datasets.iNaturalist18Dataset
+    data_dir: /local/DEEPLEARNING/image_retrieval/Inaturalist
+    alpha: 1.0
+    relevance_type: pop
+    hierarchy_mode: full
+    mode: train
+    transform:
+      _target_: torchvision.transforms.Compose
+      transforms:
+        - _target_: torchvision.transforms.RandomResizedCrop
+          scale: [0.16, 1]
+          ratio: [0.75, 1.33]
+          size: 224
+        - _target_: torchvision.transforms.RandomHorizontalFlip
+          p: 0.5
+        - _target_: torchvision.transforms.ToTensor
+        - _target_: torchvision.transforms.Normalize
+          mean: [0.485, 0.456, 0.406]
+          std: [0.229, 0.224, 0.225]
+
+  test:
+    _target_: suprank.datasets.iNaturalist18Dataset
+    data_dir: ${dataset.dts.train.data_dir}
+    alpha: ${dataset.dts.train.alpha}
+    relevance_type: ${dataset.dts.train.relevance_type}
+    hierarchy_mode: ${dataset.dts.train.hierarchy_mode}
+    mode: test
+    transform:
+      _target_: torchvision.transforms.Compose
+      transforms:
+        - _target_: torchvision.transforms.Resize
+          size: 256
+        - _target_: torchvision.transforms.CenterCrop
+          size: 224
+        - _target_: torchvision.transforms.ToTensor
+        - _target_: torchvision.transforms.Normalize
+          mean: [0.485, 0.456, 0.406]
+          std: [0.229, 0.224, 0.225]
+
+
+sampler:
+  _target_: ${if:${distributed},suprank.datasets.samplers.DistributedMPerClassSampler,suprank.datasets.samplers.MPerClassSampler}
+  batch_size: 256
+  samples_per_class: 4

@@ -1,0 +1,11 @@
+name: SupAPLoss
+weight: [1.0]
+
+losses:
+  - _target_: suprank.losses.SupAPLoss
+    tau: 0.01
+    rho: 100.0
+    offset: 1.0
+    delta: 0.05
+    start: 0.0
+    hierarchy_level: 0

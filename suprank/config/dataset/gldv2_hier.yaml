@@ -1,0 +1,101 @@
+hierarchy_level: 2
+num_classes_train_level0: 46593
+num_classes_train_level1: 78
+num_samples_train: 970981
+
+recall_for_eval: []
+
+sampler:
+  _target_: ${if:${distributed},suprank.datasets.samplers.DistributedMPerClassSampler,suprank.datasets.samplers.MPerClassSampler}
+  batch_size: 256
+  samples_per_class: 4
+  reduce_per_class: 8
+
+dts:
+
+  train:
+    _target_: suprank.datasets.GLDV2Dataset
+    data_dir: /local/DEEPLEARNING/image_retrieval/landmarks/gldv2
+    alpha: 1.0
+    relevance_type: pop
+    mode: train
+    compute_relevances: False
+    load_hierarchy: True
+    remove_nan: True
+    transform:
+      _target_: torchvision.transforms.Compose
+      transforms:
+        - _target_: torchvision.transforms.RandomResizedCrop
+          size: [224, 224]
+          scale: [0.16, 1]
+          ratio: [0.75, 1.33]
+        - _target_: torchvision.transforms.RandomHorizontalFlip
+          p: 0.5
+        - _target_: torchvision.transforms.ToTensor
+        - _target_: torchvision.transforms.Normalize
+          mean: [0.485, 0.456, 0.406]
+          std: [0.229, 0.224, 0.225]
+
+  test:
+
+    RParis6k:
+      query:
+        _target_: suprank.datasets.RevisitedDataset
+        data_dir: /local/DEEPLEARNING/image_retrieval/landmarks/rparis6k
+        mode: query
+        compute_relevances: False
+        transform:
+          _target_: torchvision.transforms.Compose
+          transforms:
+            - _target_: torchvision.transforms.Resize
+              size: [224, 224]
+            - _target_: torchvision.transforms.ToTensor
+            - _target_: torchvision.transforms.Normalize
+              mean: [0.485, 0.456, 0.406]
+              std: [0.229, 0.224, 0.225]
+
+      gallery:
+        _target_: suprank.datasets.RevisitedDataset
+        data_dir: ${dataset.dts.test.RParis6k.query.data_dir}
+        mode: gallery
+        compute_relevances: False
+        transform:
+          _target_: torchvision.transforms.Compose
+          transforms:
+            - _target_: torchvision.transforms.Resize
+              size: [224, 224]
+            - _target_: torchvision.transforms.ToTensor
+            - _target_: torchvision.transforms.Normalize
+              mean: [0.485, 0.456, 0.406]
+              std: [0.229, 0.224, 0.225]
+
+    ROxford5k:
+      query:
+        _target_: suprank.datasets.RevisitedDataset
+        data_dir: /local/DEEPLEARNING/image_retrieval/landmarks/roxford5k
+        mode: query
+        compute_relevances: False
+        transform:
+          _target_: torchvision.transforms.Compose
+          transforms:
+            - _target_: torchvision.transforms.Resize
+              size: [224, 224]
+            - _target_: torchvision.transforms.ToTensor
+            - _target_: torchvision.transforms.Normalize
+              mean: [0.485, 0.456, 0.406]
+              std: [0.229, 0.224, 0.225]
+
+      gallery:
+        _target_: suprank.datasets.RevisitedDataset
+        data_dir: ${dataset.dts.test.ROxford5k.query.data_dir}
+        mode: gallery
+        compute_relevances: False
+        transform:
+          _target_: torchvision.transforms.Compose
+          transforms:
+            - _target_: torchvision.transforms.Resize
+              size: [224, 224]
+            - _target_: torchvision.transforms.ToTensor
+            - _target_: torchvision.transforms.Normalize
+              mean: [0.485, 0.456, 0.406]
+              std: [0.229, 0.224, 0.225]

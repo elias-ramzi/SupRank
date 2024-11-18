@@ -1,0 +1,18 @@
+name: ROADRatk
+weight:
+
+losses:
+  - _target_: suprank.losses.SupRecallLoss
+    tau: 0.01
+    rho: 100.0
+    offset: 1.44
+    delta: 0.05
+    start: 0.5
+    at_k: [1, 2, 4, 8, 16]
+    temp: 1.0
+    hierarchy_level: 0
+
+  - _target_: suprank.losses.CalibrationLoss
+    hierarchy_level: 0
+    pos_margin: 0.9
+    neg_margin: 0.6

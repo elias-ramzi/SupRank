@@ -1,0 +1,29 @@
+# Lib
+numpy
+torch==1.13.1
+torchvision==0.14.1
+pillow
+pandas
+tqdm
+tensorboard
+timm
+pytorch-metric-learning
+hydra-core==1.3.1
+hydra_colorlog==1.2.0
+rich
+
+# Utils
+matplotlib
+SciencePlots
+seaborn
+ipython
+jupyter
+
+# Dev
+ipdb
+autopep8
+flake8
+pylint
+isort
+levenshtein
+dirty_cat

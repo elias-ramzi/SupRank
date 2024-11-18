@@ -1,0 +1,16 @@
+opt:
+
+  net:
+    _partial_: true
+    _target_: torch.optim.AdamW
+    lr: 0.00001
+    weight_decay: 0.0005
+
+sch:
+
+  net:
+    _partial_: true
+    _target_: torch.optim.lr_scheduler.MultiStepLR
+    milestones: [30, 70]
+    gamma: 0.3
+    last_epoch: -1

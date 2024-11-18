@@ -1,0 +1,20 @@
+name: ROADRatk_pp
+weight:
+
+losses:
+  - _target_: suprank.losses.SupRecallLoss
+    tau: 0.01
+    rho: 100.0
+    offset: 1.44
+    delta: 0.05
+    start: 0.5
+    at_k: [1, 2, 4, 8, 16]
+    temp: 1.0
+    hierarchy_level: 0
+
+  - _target_: suprank.losses.ClusterLoss
+    hierarchy_level: 0
+    num_classes: ${dataset.num_classes_train_level0}
+    embedding_size: ${model.net.embed_dim}
+    optimizer: ${optimizer.opt.head}
+    scheduler: ${optimizer.sch.head}

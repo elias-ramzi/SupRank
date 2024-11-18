@@ -1,0 +1,32 @@
+name: HAPPIER
+weight: [0.9, 0.1]
+
+losses:
+  - _target_: suprank.losses.SupHAPLoss
+    tau: 0.01
+    rho: 100.0
+    offset: 1.44
+    delta: 0.05
+    start: 0.5
+    beta: 25
+    gamma: 0.5
+    leak: 10
+    with_hrank: False
+    hierarchy_level: MULTI
+
+  - _target_: suprank.losses.ClusterLoss
+    hierarchy_level: 0
+    num_classes: ${dataset.num_classes_train_level0}
+    embedding_size: ${model.net.embed_dim}
+    temperature: 0.05
+    optimizer:
+      _partial_: true
+      _target_: torch.optim.Adam
+      lr: 10.0
+      weight_decay: 0.0
+    scheduler:
+      _partial_: true
+      _target_: suprank.models.schedulers.CosineAnnealingLR
+      T_max: ${max_iter}
+      eta_min: 0.1
+      last_epoch: -1

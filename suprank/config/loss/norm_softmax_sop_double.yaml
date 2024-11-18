@@ -1,0 +1,36 @@
+name: NSM
+weight:
+
+losses:
+
+  - _target_: suprank.losses.ClusterLoss
+    hierarchy_level: 0
+    num_classes: ${dataset.num_classes_train_level0}
+    embedding_size: ${model.net.embed_dim}
+    optimizer:
+      _partial_: true
+      _target_: torch.optim.Adam
+      lr: 10.0
+      weight_decay: 0.0
+    scheduler:
+      _partial_: true
+      _target_: suprank.models.schedulers.CosineAnnealingLR
+      T_max: ${max_iter}
+      eta_min: 0.1
+      last_epoch: -1
+
+  - _target_: suprank.losses.ClusterLoss
+    hierarchy_level: 1
+    num_classes: ${dataset.num_classes_train_level1}
+    embedding_size: ${model.net.embed_dim}
+    optimizer:
+      _partial_: true
+      _target_: torch.optim.Adam
+      lr: 10.0
+      weight_decay: 0.0
+    scheduler:
+      _partial_: true
+      _target_: suprank.models.schedulers.CosineAnnealingLR
+      T_max: ${max_iter}
+      eta_min: 0.1
+      last_epoch: -1

@@ -1,0 +1,13 @@
+name: SupRecallLoss_at_10
+weight: [1.0]
+
+losses:
+  - _target_: suprank.losses.SupRecallLoss
+    tau: 0.01
+    rho: 100.0
+    offset: 1.44
+    delta: 0.05
+    start: 0.5
+    at_k: [10]
+    temp: 1.0
+    hierarchy_level: 0

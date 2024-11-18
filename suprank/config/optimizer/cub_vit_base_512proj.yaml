@@ -1,0 +1,29 @@
+opt:
+
+  backbone:
+    _partial_: true
+    _target_: torch.optim.AdamW
+    lr: 0.000001
+    weight_decay: 0.0005
+
+  head:
+    _partial_: true
+    _target_: torch.optim.AdamW
+    lr: ${mult:2,${optimizer.opt.backbone.lr}}
+    weight_decay: ${optimizer.opt.backbone.weight_decay}
+
+sch:
+
+  backbone:
+    _partial_: true
+    _target_: suprank.models.schedulers.CosineAnnealingLR
+    T_max: ${max_iter}
+    eta_min: 0.000001
+    last_epoch: -1
+
+  head:
+    _partial_: true
+    _target_: suprank.models.schedulers.CosineAnnealingLR
+    T_max: ${max_iter}
+    eta_min: 0.000001
+    last_epoch: -1

@@ -1,0 +1,11 @@
+name: ProxyNCA++
+weight:
+
+losses:
+
+  - _target_: suprank.losses.ProxyNCAppLoss
+    hierarchy_level: 0
+    num_classes: ${dataset.num_classes_train_level0}
+    embedding_size: ${model.net.embed_dim}
+    optimizer: ${optimizer.opt.head}
+    scheduler: ${optimizer.sch.head}

@@ -1,0 +1,7 @@
+_target_: suprank.losses.tools.XBM
+queue_size: 60000
+embedding_size: ${model.net.embed_dim}
+target_size: ${dataset.hierarchy_level}
+factor: 1.0
+factor_true_loss: 1.0
+activate: 5

@@ -1,0 +1,33 @@
+name: TripletLoss
+weight:
+
+losses:
+  - _target_: suprank.losses.TripletLoss
+    margin: 0.05
+    semihard: False
+    hierarchy_level: 0
+
+  - _target_: suprank.losses.TripletLoss
+    margin: 0.05
+    semihard: False
+    hierarchy_level: 1
+
+  - _target_: suprank.losses.TripletLoss
+    margin: 0.05
+    semihard: False
+    hierarchy_level: 3
+
+  - _target_: suprank.losses.TripletLoss
+    margin: 0.05
+    semihard: False
+    hierarchy_level: 4
+
+  - _target_: suprank.losses.TripletLoss
+    margin: 0.05
+    semihard: False
+    hierarchy_level: 5
+
+  - _target_: suprank.losses.TripletLoss
+    margin: 0.05
+    semihard: False
+    hierarchy_level: 6

@@ -1,0 +1,16 @@
+opt:
+
+  net:
+    _partial_: true
+    _target_: torch.optim.AdamW
+    lr: 0.00001
+    weight_decay: 0.0005
+
+sch:
+
+  net:
+    _partial_: true
+    _target_: suprank.models.schedulers.CosineAnnealingLR
+    T_max: ${max_iter}
+    eta_min: 0.0
+    last_epoch: -1

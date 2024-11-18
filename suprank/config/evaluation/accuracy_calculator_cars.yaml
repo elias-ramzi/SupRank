@@ -1,0 +1,13 @@
+_target_: suprank.engine.AccuracyCalculator
+compute_for_hierarchy_levels: [0]
+exclude: []
+recall_rate: [2,4,8]
+true_recall: []
+hard_ap_for_level: []
+with_binary_asi: False
+overall_accuracy: False
+metric_batch_size: 256
+inference_batch_size: 256
+num_workers: ${num_workers}
+pin_memory: ${pin_memory}
+convert_to_cuda: True

@@ -1,0 +1,52 @@
+hierarchy_level: 3
+num_classes_train_level0: 1639
+num_classes_train_level1: 171
+num_classes_train_level2: 36
+num_samples_train:
+
+recall_for_eval: [1]
+
+sampler:
+  _target_: ${if:${distributed},suprank.datasets.samplers.DistributedMPerClassSampler,suprank.datasets.samplers.MPerClassSampler}
+  batch_size: 256
+  samples_per_class: 4
+
+
+dts:
+  train:
+    _target_: suprank.datasets.DyMLProduct
+    data_dir: /local/DEEPLEARNING/image_retrieval/dyml_product
+    alpha: 1.0
+    relevance_type: pop
+    mode: train
+    transform:
+      _target_: torchvision.transforms.Compose
+      transforms:
+        - _target_: torchvision.transforms.RandomResizedCrop
+          scale: [0.16, 1]
+          ratio: [0.75, 1.33]
+          size: 224
+        - _target_: torchvision.transforms.RandomHorizontalFlip
+          p: 0.5
+        - _target_: torchvision.transforms.ToTensor
+        - _target_: torchvision.transforms.Normalize
+          mean: [0.485, 0.456, 0.406]
+          std: [0.229, 0.224, 0.225]
+
+  test:
+    _target_: suprank.datasets.DyMLProduct
+    data_dir: ${dataset.dts.train.data_dir}
+    alpha: ${dataset.dts.train.alpha}
+    relevance_type: ${dataset.dts.train.relevance_type}
+    mode: test
+    transform:
+      _target_: torchvision.transforms.Compose
+      transforms:
+        - _target_: torchvision.transforms.Resize
+          size: 256
+        - _target_: torchvision.transforms.CenterCrop
+          size: 224
+        - _target_: torchvision.transforms.ToTensor
+        - _target_: torchvision.transforms.Normalize
+          mean: [0.485, 0.456, 0.406]
+          std: [0.229, 0.224, 0.225]

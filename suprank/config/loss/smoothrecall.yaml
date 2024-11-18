@@ -1,0 +1,10 @@
+name: SmoothRecallLoss
+weight: [1.0]
+
+losses:
+  - _target_: suprank.losses.SmoothRecallLoss
+    tau: 0.01
+    at_k: [1, 2, 4, 8, 16]
+    temp: 1.0
+    use_pos_mixup: False
+    hierarchy_level: 0

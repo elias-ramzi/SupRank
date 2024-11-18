@@ -1,0 +1,12 @@
+sync_bn: False
+freeze_batch_norm: False
+
+net:
+  _target_: suprank.models.RetrievalNet
+  backbone_name: vit_small
+  embed_dim: 384
+  norm_features: False
+  without_fc: True
+  with_autocast: True
+  pretrained: True
+  pooling: default

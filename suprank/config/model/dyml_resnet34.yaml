@@ -1,0 +1,12 @@
+sync_bn: True
+freeze_batch_norm: False
+
+net:
+  _target_: suprank.models.RetrievalNet
+  backbone_name: resnet34
+  embed_dim: 512
+  norm_features: True
+  without_fc: False
+  with_autocast: True
+  pretrained: False
+  pooling: default

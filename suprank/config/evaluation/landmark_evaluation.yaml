@@ -1,0 +1,5 @@
+_target_: suprank.engine.LandmarkEvaluation
+batch_size: 60
+num_workers: ${num_workers}
+amp: True
+multi_scale: False

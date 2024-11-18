@@ -1,0 +1,18 @@
+opt:
+
+  net:
+    _partial_: true
+    _target_: torch.optim.SGD
+    lr: 0.1
+    weight_decay: 0.0001
+    momentum: 0.9
+    nesterov: True
+
+sch:
+
+  net:
+    _partial_: true
+    _target_: suprank.models.schedulers.CosineAnnealingLR
+    T_max: ${max_iter}
+    eta_min: 0.000001
+    last_epoch: -1
