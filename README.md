@@ -1,6 +1,6 @@
 # Optimization of Rank Losses for Image Retrieval
 
-This repo contains the official PyTorch implementation of our paper: [Optimization of Rank Losses for Image Retrieval](https://arxiv.org/abs/2207.04873) (under-review TPAMI).
+This repo contains the official PyTorch implementation of our paper: [Optimization of Rank Losses for Image Retrieval](https://arxiv.org/abs/2309.08250), TPAMI 2025.
 
 ![figure_methode](https://github.com/elias-ramzi/SupRank/blob/main/.github/figures/figure_intro_tpami.png)
 
@@ -206,8 +206,8 @@ Please consider citing our works:
 @inproceedings{ramzi2023optimization,
   author = {Ramzi, E. and Audebert, N. and Rambour, C. and Araujo, A. and Bitot, X. and Thome, N.},
   title = {{Optimization of Rank Losses for Image Retrieval}},
-  year = {2023},
-  booktitle = {In submission to: IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  year = {2025},
+  booktitle = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
 }
 
 @inproceedings{ramzi2022hierarchical,
